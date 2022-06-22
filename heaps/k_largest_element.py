@@ -27,30 +27,21 @@ class KthLargest:
 # param_1 = obj.add(val)
 
 if __name__ == "__main__":
-    ops = ["KthLargest","add","add","add","add","add"]
-    values = [[1,[]],[-3],[-2],[-4],[0],[4]]
+    ops = ["KthLargest", "add", "add", "add", "add", "add"]
+    values = [[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]
 
     start = time()
     
     pq = None
-    k = 0
 
     result = []
 
     for i in range(len(ops)):
         if ops[i] == "KthLargest":
-            k = values[0][0]
-            pq = values[0][1]
-            for n in values[i][1]:
-                heapq.heappush(pq, n)
-                if len(pq) > k:
-                    heapq.heappop(pq)
+            kthLargest = KthLargest(values[0][0], values[0][1])
             result.append(None)
         else:
-            heapq.heappush(pq, values[i][0])
-            if len(pq) > k:
-                heapq.heappop(pq)
-            result.append(pq[0])
+            result.append(kthLargest.add(values[i][0]))
     
     print(result)
     print(f"Time elapsed : {(time() - start) * 1000} milliseconds")

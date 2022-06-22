@@ -1,4 +1,5 @@
 # topological sorting
+
 from collections import defaultdict
 from typing import List
 
@@ -8,34 +9,27 @@ class Graph:
         self.vertices = V
 
     def add_edge(self, u, v):
-        if u in self.adj_list:
-            self.adj_list[u].append(v)
-        else:
-            self.adj_list[u] = [v]
-        if v not in self.adj_list:
-            self.adj_list[v] = []
+        self.adj_list[u].append(v)
 
 
 def topological_sort(g: Graph):
     stack = []
-    visited = [False for _ in range(g.vertices)]
+    visited = [False] * g.vertices
     for n in range(g.vertices):
-        dfs(g.adj_list, n, stack, visited)
+        if not visited[n]:
+            dfs(g.adj_list, n, stack, visited)
     return stack[::-1]
 
-def dfs(adj_list: dict, current, stack: list, visited: list):
+def dfs(adj_list: dict, current: int, stack: list, visited: list):
     # plan : depth-first search
-    if visited[current]:
-        return
-
+    
     visited[current] = True
 
+    # check neighbors of current vertex
     for neighbor in adj_list[current]:
         if not visited[neighbor]:
-            visited[neighbor] = True
             dfs(adj_list, neighbor, stack, visited)
-            stack.append(neighbor)
-
+    stack.append(current)
 
 
 if __name__ == "__main__":
