@@ -1,18 +1,12 @@
-from tkinter import W
-
-
-class BinaryIndexTree:
+class FenwickTree:
     
     def __init__(self, arr, n) -> None:
         self.tree = [0] * (n+1)
         self.n = n
-
-    def construct(self):
         for i in range(self.n):
-            self.updatebit(self.n, i, arr[i])
-        return self.tree
+            self.update(self.n, i, arr[i])
     
-    def updatebit(self, n, i, v):
+    def update(self, n, i, v):
         i += 1
         while i <= n:
             self.tree[i] += v
@@ -30,7 +24,7 @@ class BinaryIndexTree:
 if __name__ == "__main__":
     arr = [2, 1, 1, 3, 2, 3, 4, 5, 6, 7, 8, 9]
     n = len(arr)
-    bit = BinaryIndexTree(arr, n)
-    bit.construct()
-    p = 6
+    bit = FenwickTree(arr, n)
+    print(bit.tree)
+    p = 7
     print(f"Sum of elements in arr[0..{p}] is " + str(bit.get_sum(p)))

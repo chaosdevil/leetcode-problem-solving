@@ -29,6 +29,7 @@ def dfs(adj_list: dict, current: int, stack: list, visited: list):
     for neighbor in adj_list[current]:
         if not visited[neighbor]:
             dfs(adj_list, neighbor, stack, visited)
+            
     stack.append(current)
 
 

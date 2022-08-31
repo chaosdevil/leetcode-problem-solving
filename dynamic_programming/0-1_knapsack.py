@@ -3,7 +3,6 @@ from time import time
 
 class KnapSackProblem:
     def recursive_knapsack(self, capacity, n, weights, values):
-        
         # recursive approach : O(2^n)
         if n == 0 or capacity == 0:
             return 0
@@ -13,6 +12,16 @@ class KnapSackProblem:
         else:
             return max(values[n-1] + self.recursive_knapsack(capacity-weights[n-1], n-1, weights, values), 
                 self.recursive_knapsack(capacity, n-1, weights, values))
+
+    def dp_knapsack(self, capacity, weights, values):
+        dp = [0 for _ in range(capacity+1)]
+        
+        for i in range(1, len(weights)+1):
+            for w in range(capacity, -1, -1):
+                if weights[i-1] <= w:
+                    dp[w] = max(dp[w], dp[w-weights[i-1]] + values[i-1])
+
+        return dp[capacity]
 
     def my_knapsack(self, capacity, weights, values):
 
@@ -34,16 +43,6 @@ class KnapSackProblem:
     
         return max_val
 
-    def dp_knapsack(self, capacity, weights, values):
-        dp = [0 for _ in range(capacity+1)] 
-        
-        for i in range(1, len(weights)+1):
-            for w in range(capacity, -1, -1):
-                if weights[i-1] <= w:
-                    dp[w] = max(dp[w], dp[w-weights[i-1]] + values[i-1])
-
-        return dp[capacity]
-
 if __name__ == "__main__":
     
     random.seed(123)
@@ -53,8 +52,8 @@ if __name__ == "__main__":
     # n = len(values)
 
     capacity = 3740000
-    values = sorted([random.randint(1000,10000) for _ in range(10000)])
-    weights = sorted([random.randint(1000,100000) for _ in range(10000)])
+    values = sorted([random.randint(1000,10000) for _ in range(80)])
+    weights = sorted([random.randint(1000,100000) for _ in range(80)])
     n = len(values)
 
     knapsack = KnapSackProblem()

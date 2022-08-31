@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/ones-and-zeroes/
 
+from time import time
 from typing import List
 
 
@@ -25,4 +26,7 @@ if __name__ == "__main__":
     n = 3
 
     solution = Solution()
+
+    start = time()
     print(solution.findMaxForm(strs, m, n))
+    print(f"Time elapsed : {(time() - start) * 1000} milliseconds")
