@@ -1,4 +1,3 @@
-
 class KMP:
     def kmp_search(self, s, pattern):
         i = 0
